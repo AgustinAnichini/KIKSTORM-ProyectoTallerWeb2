@@ -10,9 +10,7 @@ export class CarritoController {
 
   async obtenerCarrito(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
-      // TODO: Cambiar por el usuario logueado
-      const usuarioId = 1; // (req as any).user?.id;
+      const usuarioId = 1
       
       const carrito = await this.carritoService.obtenerCarritoUsuario(usuarioId);
       
@@ -31,8 +29,6 @@ export class CarritoController {
 
   async agregarAlCarrito(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
-      // TODO: Cambiar por el usuario logueado
       const usuarioId = 1; // (req as any).user?.id;
 
       const { stockId, cantidad } = req.body;
@@ -74,8 +70,6 @@ export class CarritoController {
 
   async actualizarCantidad(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
-      // TODO: Cambiar por el usuario logueado
       const usuarioId = 1; // (req as any).user?.id;
       const { itemId } = req.params;
       const { cantidad } = req.body;
@@ -110,8 +104,6 @@ export class CarritoController {
 
   async eliminarItem(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
-      // TODO: Cambiar por el usuario logueado
       const usuarioId = 1; // (req as any).user?.id;
       const { itemId } = req.params;
 
@@ -133,7 +125,6 @@ export class CarritoController {
 
   async vaciarCarrito(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
       const usuarioId = 1; // (req as any).user?.id;
 
       const carrito = await this.carritoService.vaciarCarrito(usuarioId);
@@ -154,7 +145,6 @@ export class CarritoController {
 
   async finalizarCompra(req: Request, res: Response): Promise<void> {
     try {
-      // Por ahora usar un usuarioId fijo para testing
       const usuarioId = 1; // (req as any).user?.id;
 
       const resultado = await this.carritoService.finalizarCompra(usuarioId);

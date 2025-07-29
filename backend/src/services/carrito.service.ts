@@ -170,8 +170,6 @@ export class CarritoService {
       // Actualizar stock
       for (const item of carrito.items) {
         await this.carritoRepository.obtenerStockPorId(item.stockId);
-        // Aquí podrías actualizar el stock restando la cantidad comprada
-        // await this.stockRepository.actualizarStock(item.stockId, item.stock.cantidad - item.cantidad);
       }
 
       // Finalizar carrito

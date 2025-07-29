@@ -9,7 +9,11 @@
     </div>
   </div>
 
-
+<div>
+  <div>
+    <img [src]="slider" alt="slider promocional" class="slider-promo">
+  </div>
+</div>
   <!-- Primera Galería -->
   <p-galleria
     [value]="imagesFirstGallery"
@@ -93,6 +97,23 @@
       </ng-template>
     </p-galleria>
   </div>
+  
+  <section>
+    <h1 class="text-center favoritos">Tus pares favoritos</h1>
+    <div class="products">
+      <div class="products__div"
+          *ngFor="let zapatilla of zapatillaLimit"
+          (click)="openDetail(zapatilla)">          
+
+        <app-shoe
+          [zapatilla]="zapatilla"
+          (detalle)="openDetail($event)">           
+        </app-shoe>
+
+      </div>
+  </div>
+</section>
+
 </section>
 
 <app-footer />

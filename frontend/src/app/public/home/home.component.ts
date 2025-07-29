@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { ShoeComponent } from '../shoe/shoe.component';
+import { Zapatilla } from '../../../interfaces';
+import { ZapatillaService } from '../../api/services/zapatilla/zapatilla.service';
+import { error } from 'console';
+import { ProductDetailComponent } from '../product-detail/product-detail.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 @Component({
   selector: 'app-home',
-  imports: [GalleriaModule, RouterLink, CardModule, ButtonModule, FooterComponent],
+  imports: [GalleriaModule, RouterLink, CardModule, ButtonModule, FooterComponent, ShoeComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  providers: [DialogService],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
   sendIcon: string = '/img/iconSend.png'
   pagoIcon: string = '/img/iconPago.png' 
@@ -27,8 +34,46 @@ export class HomeComponent {
   nike: string = '/img/Logo-Nike.png'
   puma: string = '/img/Logo-Puma.png'
   fila: string = '/img/Logo-Fila.webp'
+  slider: string = '/img/slider-promo.gif'
+  zapatillaLimit: Zapatilla[] = []
+  error = '';
+  zapatillaService= inject(ZapatillaService)
+  dialogService = inject(DialogService)
+  private ref?: DynamicDialogRef;
 
+  ngOnInit(): void {
+    this.getZapatillasDestacadas()
+  }
 
+  getZapatillasDestacadas(){
+    this.zapatillaService.getZapatillasLimit().subscribe({
+      next: (data: Zapatilla[]) => {
+        this.zapatillaLimit = data;
+      },
+      error: (err) => {
+        this.error = 'Error al cargar las zapatillas';
+        console.error(err);
+      } 
+    })
+  }
+
+   openDetail(z: Zapatilla) {
+    this.ref = this.dialogService.open(ProductDetailComponent, {
+      header : z.nombre,
+      data   : { id: z.id },
+      width  : '70vw',
+      modal  : true,
+  
+      styleClass: 'product-dialog dark-dialog',
+  
+      contentStyle: { padding: '0' },
+  
+      dismissableMask: true,
+  
+      ...(<any>{ autoFocus: false, focusTrap: false })
+    });
+  }
+  
 
   // Galería 1 (primera)
   imagesFirstGallery: any[] = [

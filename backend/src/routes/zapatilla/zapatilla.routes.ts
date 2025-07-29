@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     cb(null, uploadPath);  
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // O usá un nombre único si querés evitar sobrescribir
+    cb(null, file.originalname); 
   }
 });
 const upload = multer({ storage });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShoeComponent } from '../shoe/shoe.component';
 import { FiltersComponent } from '../filters/filters.component';
@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductDetailComponent }        from '../product-detail/product-detail.component'; 
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { ZapatillaService } from '../../api/services/zapatilla/zapatilla.service';
+import { forkJoin, Subscription } from 'rxjs';
 
 
 @Component({
@@ -19,12 +21,12 @@ import { FooterComponent } from '../../shared/footer/footer.component';
   styleUrl: './products.component.css',
   providers: [DialogService],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   zapatillas: Zapatilla[] = [];
   filteredZapatillas: Zapatilla[] = []; 
   searchTerm: string = '';
   minPrice: number | null = null;
-  maxPrice: number | null = null;
+  maxPrice: number | null = null; 
   marcas: string[] = [];
   talles: number[] = [];
   colores: string[] = [];
@@ -37,16 +39,18 @@ export class ProductsComponent implements OnInit {
     sexos: [] as string[],
   };
 
+  http = inject(HttpClient)
+  router = inject(Router);
+  route = inject(ActivatedRoute)
+  dialogService = inject(DialogService)
+  zapatillaService = inject(ZapatillaService)
 
   loading = true;
   error = '';
 
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialogService: DialogService 
-  ) {}
+  private subscriptions: Subscription[] = [];
+  private ref?: DynamicDialogRef;
+  constructor() {}
 
   ngOnInit(): void {
     this.fetchFilters();
@@ -61,83 +65,77 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  private ref?: DynamicDialogRef;
+  ngOnDestroy(): void {
+    this.ref?.close();
+    this.subscriptions.forEach((sub) => sub.unsubscribe()); 
+  }
 
   private parseParam(value: string | null): string[] {
     return value ? value.split(',').map((v) => v.trim().toLowerCase()) : [];
   }
 
   private fetchFilters(): void {
-    this.http.get<any[]>(`${environment.api_url}/marca`).subscribe({
-      next: (data) => (this.marcas = data.map((m) => m.nombre.toLowerCase())),
-      error: (err) => console.error('Error al cargar marcas', err),
-    });
+   const filters$ = [
+      this.zapatillaService.getMarcas(),
+      this.zapatillaService.getTalles(),
+      this.zapatillaService.getColores(),
+    ];
 
-    this.http.get<any[]>(`${environment.api_url}/talle`).subscribe({
-      next: (data) => (this.talles = data.map((t) => t.numero)),
-      error: (err) => console.error('Error al cargar talles', err),
-    });
-
-    this.http.get<any[]>(`${environment.api_url}/color`).subscribe({
-      next: (data) => (this.colores = data.map((c) => c.nombre.toLowerCase())),
-      error: (err) => console.error('Error al cargar colores', err),
-    });
-  }
-
- openDetail(z: Zapatilla) {
-  this.ref = this.dialogService.open(ProductDetailComponent, {
-    header : z.nombre,
-    data   : { id: z.id },
-    width  : '70vw',
-    modal  : true,
-
-    styleClass: 'product-dialog dark-dialog',
-
-    contentStyle: { padding: '0' },
-
-    dismissableMask: true,
-
-    ...(<any>{ autoFocus: false, focusTrap: false })
-  });
-}
-
-
-  ngOnDestroy(){
-    this.ref?.close();
+    // para esperar todas las respuestas
+    this.subscriptions.push(
+      forkJoin(filters$).subscribe({
+        next: ([marcas, talles, colores]) => {
+          this.marcas = marcas as string[]
+          this.talles = talles.map(t => Number(t)) as number[]
+          this.colores = colores as string[]
+        },
+        error: (err) => console.error('Error al cargar filtros:', err),
+      })
+    );
   }
 
 
   private fetchZapatillas(): void {
-    this.loading = true;
+  this.loading = true;
+  
+  const queryParams = this.buildQueryParams();
+  
+  this.subscriptions.push(
+    this.zapatillaService.getZapatillasFiltered(queryParams).subscribe({
+      next: this.handleZapatillasResponse.bind(this),
+      error: this.handleZapatillasError.bind(this),
+    })
+  );
+}
 
-    const queryParams: any = {
-      marcas: this.selectedFilters.marcas.join(','),
-      talles: this.selectedFilters.talles.join(','),
-      colores: this.selectedFilters.colores.join(','),
-      sexos: this.selectedFilters.sexos.join(','),
-    };
+private buildQueryParams(): any {
+  const { marcas, talles, colores, sexos } = this.selectedFilters;
+  const queryParams: any = {
+    marcas: marcas.join(','),
+    talles: talles.join(','),
+    colores: colores.join(','),
+    sexos: sexos.join(','),
+  };
 
-    if (this.searchTerm) queryParams.search = this.searchTerm;
-    if (this.minPrice !== null) queryParams.minPrice = this.minPrice;
-    if (this.maxPrice !== null) queryParams.maxPrice = this.maxPrice;
+  if (this.searchTerm) queryParams.search = this.searchTerm;
+  if (this.minPrice !== null) queryParams.minPrice = this.minPrice;
+  if (this.maxPrice !== null) queryParams.maxPrice = this.maxPrice;
 
-    this.http
-      .get<Zapatilla[]>(`${environment.api_url}/zapatilla`, {
-        params: queryParams,
-      })
-      .subscribe({
-        next: (data) => {
-          this.zapatillas = data;
-          this.filteredZapatillas = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.error = 'Error al cargar las zapatillas';
-          console.error(err);
-          this.loading = false;
-        },
-      });
-  }
+  return queryParams;
+}
+
+private handleZapatillasResponse(data: Zapatilla[]): void {
+  this.zapatillas = data;
+  this.filteredZapatillas = data;
+  this.loading = false;
+}
+
+private handleZapatillasError(err: any): void {
+  this.error = 'Error al cargar las zapatillas';
+  console.error(err);
+  this.loading = false;
+}
+
 
   onSearchTermChange(value: string) {
     this.searchTerm = value;
@@ -158,14 +156,14 @@ export class ProductsComponent implements OnInit {
     this.fetchZapatillas();
   }
 
-  toggleFilter<T>(filter: any[], value: T): void {
-    const index = filter.indexOf(value as any);
-    index > -1 ? filter.splice(index, 1) : filter.push(value as any);
-    this.updateQueryParams();
-    this.fetchZapatillas();
-  }
+  toggleFilter<T>(filter: T[], value: T): void {
+  const index = filter.indexOf(value);
+  index > -1 ? filter.splice(index, 1) : filter.push(value);
+  this.updateQueryParams();
+  this.fetchZapatillas();
+}
 
-  toggleMarca(marca: string) {
+ toggleMarca(marca: string) {
     this.toggleFilter(this.selectedFilters.marcas, marca.toLowerCase());
   }
 
@@ -199,4 +197,22 @@ export class ProductsComponent implements OnInit {
       replaceUrl: true,
     });
   }
+
+ openDetail(z: Zapatilla) {
+  this.ref = this.dialogService.open(ProductDetailComponent, {
+    header : z.nombre,
+    data   : { id: z.id },
+    width  : '70vw',
+    modal  : true,
+
+    styleClass: 'product-dialog dark-dialog',
+
+    contentStyle: { padding: '0' },
+
+    dismissableMask: true,
+
+    ...(<any>{ autoFocus: false, focusTrap: false })
+  });
+}
+
 }

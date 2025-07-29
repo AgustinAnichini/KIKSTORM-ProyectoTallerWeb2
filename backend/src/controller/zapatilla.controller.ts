@@ -36,16 +36,6 @@ export class ZapatillaController {
         }
     }
 
-    // async create(req: Request, res: Response): Promise<void> {
-    //     try {
-    //         console.log('Body recibido:', req.body); // <== Esto debería mostrar el JSON
-    //         const newZap = await this.service.create(req.body)
-    //         res.status(201).json(newZap)
-    //     } catch (error) {
-    //         res.status(400).json({ error: (error as Error).message })
-    //     }
-    // }
-
     async update(req: Request, res: Response): Promise<void> {
         const id = Number(req.params.id)
         if (isNaN(id)) {

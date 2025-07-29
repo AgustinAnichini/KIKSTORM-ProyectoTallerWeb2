@@ -180,12 +180,10 @@ export class CarritoComponent implements OnInit {
       return '/img/zapatilla-1.webp';
     }
 
-    // Si ya tiene /img/ al principio, devolver tal como está
     if (imagen.startsWith('/img/')) {
       return imagen;
     }
 
-    // Si no tiene /img/, agregarlo
     return `/img/${imagen}`;
   }
 }

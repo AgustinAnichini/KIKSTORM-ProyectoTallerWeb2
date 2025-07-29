@@ -9,6 +9,7 @@ import { CarritoService } from '../../api/services/carrito/carrito.service';
 import Swal from 'sweetalert2';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthUsuarioService } from '../../api/services/usuario/auth-usuario.service';  
+import { ZapatillaService } from '../../api/services/zapatilla/zapatilla.service';
 
 @Component({
   selector   : 'app-product-detail',
@@ -35,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
 
   selectedStock?: Stock;
   agregando     = false;
+  zapatillaService= inject(ZapatillaService)
 
   zapatilla?: Zapatilla;
   loading   = true;
@@ -48,11 +50,10 @@ export class ProductDetailComponent implements OnInit {
 
     if (!id) { this.errorMsg = 'Producto no encontrado'; return; }
 
-    this.http.get<Zapatilla>(`${environment.api_url}/zapatilla/${id}`)
-      .subscribe({
-        next : d => { this.zapatilla = d; this.loading = false; },
-        error: _ => { this.errorMsg  = 'Producto no encontrado'; this.loading = false; }
-      });
+   this.zapatillaService.getZapatillaById(id).subscribe({
+      next : d => { this.zapatilla = d; this.loading = false; },
+      error: _ => { this.errorMsg  = 'Producto no encontrado'; this.loading = false; }
+   })
   }
 
   /* ---------------------------- helpers ----------------------------- */

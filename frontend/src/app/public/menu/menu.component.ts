@@ -1,4 +1,3 @@
-// src/app/modules/usuario/components/menu/menu.component.ts
 import { Component, effect, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
@@ -34,17 +33,11 @@ export class MenuComponent {
 
   usuarioLogueado = this.auth.usuario;
 
-  private usuarioEffect = effect(() => {
-    console.log('Usuario:', this.usuarioLogueado());
-  });
-
-  /** cierra sesión y redirige al home */
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/']);
   }
 
-  /** abre el carrito */
   ngOnInit(): void {
   // Suscribirse al carrito
   this.carritoService.carrito$.subscribe((carrito: Carrito | null) => {
@@ -193,12 +186,10 @@ export class MenuComponent {
       return '/img/zapatilla-1.webp';
     }
 
-    // Si ya tiene /img/ al principio, devolver tal como está
     if (imagen.startsWith('/img/')) {
       return imagen;
     }
 
-    // Si no tiene /img/, agregarlo
     return `/img/${imagen}`;
   }
 }
