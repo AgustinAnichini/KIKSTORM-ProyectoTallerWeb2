@@ -111,7 +111,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  background-color: var(--color-acento);
+  /* background-color: var(--color-primario); */
+   background: rgb(82, 79, 72);
 }
 
 .products__div {

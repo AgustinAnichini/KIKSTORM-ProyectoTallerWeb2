@@ -1,7 +1,11 @@
 import { Routes } from "@angular/router";
 import { SigninComponent } from "./pages/signin/signin.component";
 import { SignupComponent } from "./pages/signup/signup.component";
+import { AuthUsuarioService } from "../../api/services/usuario/auth-usuario.service";
+import { inject } from "@angular/core";
+import { AdminGuard } from "../../guards/admin.guard";
 
+   
 export const usuarioRoutes: Routes = [
   {
     path: 'signup',
@@ -16,7 +20,8 @@ export const usuarioRoutes: Routes = [
   {
     path: 'admin',
     loadComponent: () =>
-      import('./pages/admin/admin.component').then(m => m.AdminComponent)
+      import('./pages/admin/admin.component').then(m => m.AdminComponent),
+    canActivate: [AdminGuard]
   },
   {
     path: 'forgot-password',

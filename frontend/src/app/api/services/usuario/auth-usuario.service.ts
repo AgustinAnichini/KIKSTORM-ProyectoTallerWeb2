@@ -9,7 +9,7 @@ export class AuthUsuarioService {
   _token  = signal<string | null>(null);
 
   constructor() {
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser()) {
       const rawUser  = localStorage.getItem('usuario');
       const rawToken = localStorage.getItem('token');
       if (rawUser)  this.usuario.set(JSON.parse(rawUser));
@@ -20,16 +20,35 @@ export class AuthUsuarioService {
   login(resp: AuthResponse) {
     this.usuario.set(UsuarioMapper.mapUsuarioRestToUsuario(resp.usuario));
     this._token.set(resp.token);
-    localStorage.setItem('usuario', JSON.stringify(resp.usuario));
-    localStorage.setItem('token', resp.token);
+
+    if (this.isBrowser()) {
+      localStorage.setItem('usuario', JSON.stringify(resp.usuario));
+      localStorage.setItem('token', resp.token);
+    }
   }
 
   logout() {
     this.usuario.set(null);
     this._token.set(null);
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('token');
+
+    if (this.isBrowser()) {
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('token');
+    }
   }
 
-  get token() { return this._token(); }
+  obtenerUsuarioDesdeLocalStorage(): Usuario | null {
+    if (!this.isBrowser()) return null;
+
+    const data = localStorage.getItem('usuario');
+    return data ? JSON.parse(data) as Usuario : null;
+  }
+
+  get token() {
+    return this._token();
+  }
+
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
+  }
 }
