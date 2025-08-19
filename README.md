@@ -1,4 +1,4 @@
-# TP - Taller Web II: KikStore 🛒👟
+# TP - Taller Web II: KIKSTORM 🛒👟
 
 ## Integrantes (Grupo 9)
 
