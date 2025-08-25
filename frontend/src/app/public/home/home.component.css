@@ -1,5 +1,5 @@
 .bg-home{
-  background-color: var(--color-primario);
+  background-color: black;
 }
 
 .benefits {
@@ -40,7 +40,7 @@
 }
 
 .categorias{
-  padding: 5rem 0rem;
+  padding: 5rem 0rem 3rem 0rem;
   display: flex; 
   justify-content: center;
   gap: 4rem;
@@ -83,7 +83,7 @@
 
 .nav-marcas{
   display: flex;
-  justify-content:center;
+  justify-content: center;
   background-color: var(--color-acento);
   padding: .5rem;
 }
@@ -99,6 +99,18 @@
 .container-marcas img{
   width: 3rem;
   height: 2rem;
+}
+
+.container-marcas-2{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.container-marcas-2 img{
+  width: 20rem;
+  height: auto;
 }
 
 .slider-promo{
@@ -118,7 +130,6 @@
 .products__div {
   background: var(--color-primario);
   border: 2px solid var(--color-primario);
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

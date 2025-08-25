@@ -1,4 +1,4 @@
-<section class="bg-home">
+<section class="bg-home pb-5">
 
   <div class="nav-marcas">
     <div class="container-marcas">
@@ -71,10 +71,25 @@
       </a>
     </div>
   </div>
+  <!-- Productos destacados -->
+  <section class="mb-4">
+    <h1 class="text-center favoritos">Tus pares favoritos</h1>
+    <div class="products-home">
+        <div class="products__div"
+          *ngFor="let zapatilla of zapatillaLimit"
+          (click)="openDetail(zapatilla)">          
+
+        <app-shoe
+          [zapatilla]="zapatilla"
+          (detalle)="openDetail($event)">           
+        </app-shoe>
+
+      </div>
+    </div>
+</section>
 
   <!-- Segunda Galería (Destacados de la Semana) -->
   <div class="destacados">
-    <h1>Destacados de la Semana</h1>
     <p-galleria
       class="second-gallery"
       [value]="imagesSecondGallery"
@@ -98,21 +113,18 @@
     </p-galleria>
   </div>
   
-  <section>
-    <h1 class="text-center favoritos">Tus pares favoritos</h1>
-    <div class="products">
-      <div class="products__div"
-          *ngFor="let zapatilla of zapatillaLimit"
-          (click)="openDetail(zapatilla)">          
 
-        <app-shoe
-          [zapatilla]="zapatilla"
-          (detalle)="openDetail($event)">           
-        </app-shoe>
-
-      </div>
+<div>
+      <h1 class="text-center favoritos">Tus marcas favoritas</h1>
+  <div class="d-flex justify-content-center mt-4 mb-5">
+    <div class="container-marcas-2">
+     <a [routerLink]="['/productos']" [queryParams]="{ marcas: 'adidas' }"><img [src]="bgAdidas" alt="Logo adidas"></a>
+     <a [routerLink]="['/productos']" [queryParams]="{ marcas: 'nike' }"><img [src]="bgNike" alt="Logo Nike"></a>
+     <a [routerLink]="['/productos']" [queryParams]="{ marcas: 'fila' }"><img [src]="bgFila" alt="Logo Fila"></a>
+    <a [routerLink]="['/productos']" [queryParams]="{ marcas: 'puma' }"><img [src]="bgPuma" alt="Logo Puma"></a>
+    </div>
   </div>
-</section>
+</div>
 
 </section>
 

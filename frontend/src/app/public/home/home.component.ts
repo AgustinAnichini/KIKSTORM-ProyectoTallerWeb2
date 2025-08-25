@@ -34,6 +34,10 @@ export class HomeComponent implements OnInit{
   nike: string = '/img/Logo-Nike.png'
   puma: string = '/img/Logo-Puma.png'
   fila: string = '/img/Logo-Fila.webp'
+  bgAdidas: string = '/img/bg-adidas.jpg'
+  bgNike: string = '/img/bg-nike.jpg'
+  bgPuma: string = '/img/bg-puma.jpg'
+  bgFila: string = '/img/bg-fila.jpg'
   slider: string = '/img/slider-promo.gif'
   zapatillaLimit: Zapatilla[] = []
   error = '';

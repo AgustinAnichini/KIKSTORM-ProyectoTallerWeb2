@@ -99,3 +99,28 @@
   position: fixed;   
 }
 
+.products {
+    flex: 3;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.products__div {
+  border: 2px solid var(--color-primario);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: fit-content;
+  width: 15rem;
+}
+
+.products-home{
+  flex: 3;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}

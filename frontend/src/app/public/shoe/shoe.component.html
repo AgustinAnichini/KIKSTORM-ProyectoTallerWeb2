@@ -1,39 +1,53 @@
-<article class="shoe">
-
+<article class="h-100 text-dark border-0 shadow-lg" style="background-color: var(--color-acento);">
+  <!-- Imagen de la zapatilla -->
   <img
-    [src]="'/img/' + zapatilla.imagen"
+     [src]="'/img/' + zapatilla.imagen"
     alt="{{ zapatilla.nombre }}"
-    class="shoe__image"
+    class="card-img-top"
   />
 
-  <div class="shoe__talles" *ngIf="zapatilla.stock?.length">
-    <button
-      class="shoe__talle"
-      *ngFor="let item of zapatilla.stock"
-      [disabled]="!item.activo || item.cantidad === 0"
-    >
-      {{ item.talle?.numero }}
-    </button>
+  <div class="d-flex flex-column justify-content-between p-3">
+    <div>
+      <!-- Marca -->
+      <h6 class="text-dark text-uppercase fw-bold mb-1">
+        {{ zapatilla.marca.nombre }}
+      </h6>
+      <!-- Título del producto -->
+        <h5 class="fw-light text-dark mb-2 fs-6">{{ zapatilla.nombre }}</h5>
+
+      <!-- Precio -->
+      <div class="d-flex align-items-center mb-3">
+        <span class="fs-4 fw-bold text-dark">
+          ${{ zapatilla.precio.toLocaleString("es-AR") }}
+        </span>
+      </div>
+
+      <!-- Talles (tamaños) -->
+      <p class="text-muted small mb-2">Talles en stock:</p>
+      <div class="d-flex flex-wrap gap-2">
+        <ng-container *ngIf="zapatilla.stock?.length; else noStock">
+          <span
+            *ngFor="let item of zapatilla.stock"
+            class="badge rounded-pill text-bg-dark"
+            [class.text-bg-light]="item.activo && item.cantidad > 0"
+            [class.opacity-50]="!item.activo || item.cantidad === 0"
+            [class.border-success]="item.activo && item.cantidad > 0"
+            [class.border-danger]="!item.activo || item.cantidad === 0"
+          >
+            {{ item.talle?.numero }}
+          </span>
+        </ng-container>
+        <ng-template #noStock>
+          <span class="badge rounded-pill text-bg-danger opacity-50">Sin stock</span>
+        </ng-template>
+      </div>
+    </div>
+    
+    <!-- Botón de detalles que emite un evento -->
+    <div class="mt-4">
+      <button class="btn btn-outline-dark w-100 fw-bold py-2 " (click)="verDetalle( $event)">
+        Ver detalles
+      </button>
+    </div>
   </div>
-
-  <p class="shoe__brand">
-    {{ zapatilla.marca.nombre }}
-  </p>
-
-  <p class="shoe__title">
-    {{ zapatilla.nombre }}
-  </p>
-
-  <div class="shoe__prices">
-    <span class="shoe__price">
-      ${{ zapatilla.precio.toLocaleString("es-AR") }}
-    </span>
-  </div>
-
-  <button  class="shoe__detail"
-           (click)="verDetalle($event)">
-    Ver detalles
-  </button>
-
 </article>
-
