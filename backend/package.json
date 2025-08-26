@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
     "scripts": {
-      "dev": "tsnd --respawn --clear src/app.ts",
-      "build": "rimraf ./dist && tsc",
-      "start": "npm run build && node dist/app.js"
-    },
+    "dev": "tsnd --respawn --clear src/app.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && npx prisma migrate deploy && node dist/app.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
