@@ -46,7 +46,7 @@
         <div *ngFor="let control of stockControls; let i = index" class="stock-talle" [formGroupName]="i">
           <label>
             <input type="checkbox" formControlName="activo" (change)="toggleTalle(i)" />
-            Talle {{ talles[i]?.numero }}
+            Talle {{ talles[i].numero }}
           </label>
           <input
             type="number"
