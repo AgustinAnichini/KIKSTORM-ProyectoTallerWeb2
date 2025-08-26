@@ -1,7 +1,7 @@
-<div class="bg-white text-dark shadow-lg" style="border: solid 2px black;">
+<div class=" text-white shadow-lg">
   <!-- Filtro de Búsqueda -->
   <div class="mb-4 p-3">
-    <label class="form-label text-dark fw-bold">Buscar</label>
+    <label class="form-label text- fw-bold">Buscar</label>
     <input
       type="text"
       placeholder="Nombre o descripción"
@@ -13,7 +13,7 @@
 
   <!-- Filtro de Precio -->
   <div class="mb-4 p-3">
-    <label class="form-label text-dark fw-bold">Precio</label>
+    <label class="form-label text- fw-bold">Precio</label>
     <div class="d-flex gap-3">
       <input
         type="number"
@@ -33,66 +33,66 @@
   </div>
 
   <!-- Contenedor de Checkboxes en formato de grilla responsiva -->
-  <div class="d-flex flex-wrap gap-5 mt-1 p-5" style="background-color: var(--color-acento);">
+  <div class="d-flex flex-wrap gap-5 mt-1 p-5">
     <!-- Filtro de Marca -->
     <div class="col">
-      <h6 class="text-dark fw-bold mb-2">Marca</h6>
+      <h6 class="text-white fw-bold mb-2">Marca</h6>
       <div *ngFor="let marca of marcas" class="form-check mb-2">
         <input
           type="checkbox"
           [checked]="isChecked(selectedMarcas, marca)"
           (change)="toggleMarca(marca)"
-          class="form-check-input bg-dark border-dark"
+          class="form-check-input border-dark"
         />
-        <label class="form-check-label text-dark">{{ marca | titlecase }}</label>
+        <label class="form-check-label text-white">{{ marca | titlecase }}</label>
       </div>
     </div>
 
     <!-- Filtro de Color -->
     <div class="col">
-      <h6 class="text-dark fw-bold mb-2">Color</h6>
+      <h6 class="text-white fw-bold mb-2">Color</h6>
       <div *ngFor="let color of colores" class="form-check mb-2">
         <input
           type="checkbox"
           [checked]="isChecked(selectedColores, color)"
           (change)="toggleColor(color)"
-          class="form-check-input  bg-dark border-dark"
+          class="form-check-input border-dark"
         />
-        <label class="form-check-label text-dark">{{ color | titlecase }}</label>
+        <label class="form-check-label text-white">{{ color | titlecase }}</label>
       </div>
     </div>
 
     <!-- Filtro de Talle -->
     <div class="col">
-      <h6 class="text-dark fw-bold mb-2">Talle</h6>
+      <h6 class="text-white fw-bold mb-2">Talle</h6>
       <div *ngFor="let talle of talles" class="form-check mb-2">
         <input
           type="checkbox"
           [checked]="isChecked(selectedTalles, talle)"
           (change)="toggleTalle(talle)"
-          class="form-check-input  bg-dark border-dark"
+          class="form-check-input border-dark"
         />
-        <label class="form-check-label text-dark">{{ talle }}</label>
+        <label class="form-check-label text-white">{{ talle }}</label>
       </div>
     </div>
 
     <!-- Filtro de Sexo -->
     <div class="col">
-      <h6 class="text-dark fw-bold mb-2">Sexo</h6>
+      <h6 class="text-white fw-bold mb-2">Sexo</h6>
       <div *ngFor="let sexo of sexos" class="form-check mb-2">
         <input
           type="checkbox"
           [checked]="isChecked(selectedSexos, sexo)"
           (change)="toggleSexo(sexo)"
-          class="form-check-input  bg-dark border-dark"
+          class="form-check-input border-dark"
         />
-        <label class="form-check-label text-dark">{{ sexo | titlecase }}</label>
+        <label class="form-check-label text-white">{{ sexo | titlecase }}</label>
       </div>
     </div>
   </div>
 </div>
 
-<div class="my-5 shadow-lg">
+<div class="shadow-lg">
   <div class="aside">
     <img [src]="aside" alt="aside" class="img-fluid shadow" />
   </div>

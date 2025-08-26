@@ -1,5 +1,9 @@
 .bg-home{
-  background-color: var(--color-primario);
+  background-color: black;
+}
+
+:host ::ng-deep .p-galleria-indicator-list {
+  background-color: black;
 }
 
 .benefits {
@@ -11,6 +15,7 @@
   background-color: var(--color-acento);
   text-align: center;
   flex-wrap: wrap;
+  border-bottom: solid 2px var(--color-primario);
 }
 
 .benefit {
@@ -57,25 +62,10 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
 }
 
-.destacados{
-  padding: 1rem 0rem;
+.categorias div{
+  border: solid 2px var(--color-secundario);
 }
 
-.container-img-dest{
-  display: flex;
-  justify-content: center;
-}
-
-.destacados img{
-  width: 30rem;
-  height: 30rem;
-}
-
-.destacados h1{
-  color: var(--color-acento);
-  font-family: 'Bebas Neue', sans-serif;  
-  text-align: center;
-}
 #fila{
   width: 3rem;
   height: 2.8rem;
@@ -141,4 +131,35 @@
   font-family: 'Bebas Neue', sans-serif;  
   text-align: center;
   margin-top: 2rem;
+}
+
+.hero {
+  position: relative;
+  padding: 4rem 2rem;
+  background-image: url('/img/walking.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  color: white;
+  border-bottom: solid 4px var(--color-acento);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-content h2 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Bebas Neue', sans-serif; 
+  letter-spacing: -.1rem;
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: #f0f0f0;
 }

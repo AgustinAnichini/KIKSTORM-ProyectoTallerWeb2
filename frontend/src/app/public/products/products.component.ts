@@ -11,12 +11,12 @@ import { ProductDetailComponent }        from '../product-detail/product-detail.
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { ZapatillaService } from '../../api/services/zapatilla/zapatilla.service';
 import { forkJoin, Subscription } from 'rxjs';
-
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ShoeComponent, FiltersComponent, FooterComponent],
+  imports: [CommonModule, ShoeComponent, FiltersComponent, FooterComponent, GalleriaModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
   providers: [DialogService],
@@ -214,5 +214,41 @@ private handleZapatillasError(err: any): void {
     ...(<any>{ autoFocus: false, focusTrap: false })
   });
 }
+
+imagesSecondGallery: any[] = [
+    {
+      itemImageSrc: '/img/destacado-1.webp',
+      thumbnailImageSrc: 'img/hero-img-thumb.webp',
+      alt: 'Adidas superstar',
+      title: 'El Ícono de Estilo y Comodidad'
+    }, 
+    {
+      itemImageSrc: '/img/destacado-3.webp',
+      thumbnailImageSrc: 'img/hero-img-3-thumb.webp',
+      alt: 'Adidas campus',
+      title: 'Clásico Urbana con un Toque Sofisticado'
+    },
+    {
+      itemImageSrc: '/img/destacado-2.webp',
+      thumbnailImageSrc: 'img/hero-img-1-thumb.webp',
+      alt: 'Forum 2000',
+      title: 'Diseño Retro con Toque Moderno'
+    }
+  ];
+
+  responsiveOptions = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1
+    }
+  ];
 
 }

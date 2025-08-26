@@ -14,6 +14,7 @@
     <img [src]="slider" alt="slider promocional" class="slider-promo">
   </div>
 </div>
+
   <!-- Primera Galería -->
   <p-galleria
     [value]="imagesFirstGallery"
@@ -23,7 +24,7 @@
     [showItemNavigatorsOnHover]="true"
     [circular]="true"
     [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ 'max-width': '100%' }"
+    [containerStyle]="{ 'max-width': '100%',}"
   >
     <ng-template #item let-item>
       <a [routerLink]="['/productos/']">
@@ -71,6 +72,15 @@
       </a>
     </div>
   </div>
+
+<div class="hero">
+  <div class="hero-content">
+    <h2>Pisa fuerte, pisa con estilo.</h2>
+    <p>Encuentra el par que se adapta a tu ritmo.</p>
+  </div>
+</div>
+
+
   <!-- Productos destacados -->
   <section class="mb-4" >
     <h1 class="text-center favoritos">Tus pares favoritos</h1>
@@ -88,31 +98,6 @@
       </div>
     </div>
 </section>
-
-  <!-- Segunda Galería (Destacados de la Semana) -->
-  <div class="destacados">
-    <p-galleria
-      class="second-gallery"
-      [value]="imagesSecondGallery"
-      [responsiveOptions]="responsiveOptions"
-      [numVisible]="5"
-      [showThumbnails]="false"
-      [showItemNavigators]="true" 
-      [circular]="true"
-      [containerStyle]="{ 'width': '100%', 'height': 'auto', 'overflow': 'hidden' }"
-    >
-      <ng-template #item let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; height: auto; display: block; " />
-      </ng-template>
-      <ng-template #thumbnail let-item>
-        <img [src]="item.thumbnailImageSrc" style="position: absolute; opacity: 0;" /> 
-      </ng-template>
-      <ng-template #caption let-item>
-        <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
-        <p class="text-white">{{ item.alt }}</p>
-      </ng-template>
-    </p-galleria>
-  </div>
   
 
 <div>
@@ -126,6 +111,7 @@
     </div>
   </div>
 </div>
+
 
 </section>
 

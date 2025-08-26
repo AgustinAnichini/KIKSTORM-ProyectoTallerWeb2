@@ -131,3 +131,15 @@
     gap: 2rem;
     justify-content: center;
 }
+
+.p-galleria,
+.p-galleria-indicators {
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.p-galleria .p-galleria-item-container img {
+    border-radius: 0 !important;
+        border: none !important;
+
+}

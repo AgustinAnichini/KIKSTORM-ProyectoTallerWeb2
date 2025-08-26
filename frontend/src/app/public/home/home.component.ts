@@ -10,7 +10,7 @@ import { ZapatillaService } from '../../api/services/zapatilla/zapatilla.service
 import { error } from 'console';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-
+// import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
   selector: 'app-home',
@@ -82,16 +82,16 @@ export class HomeComponent implements OnInit{
   // Galería 1 (primera)
   imagesFirstGallery: any[] = [
     {
-      itemImageSrc: '/img/hero-img.webp',
-      thumbnailImageSrc: 'img/hero-img-thumb.webp',
-      alt: 'Zapatilla 1',
-      title: 'Modelo Urbano 1'
-    },
-    {
       itemImageSrc: '/img/hero-img-1.webp',
       thumbnailImageSrc: 'img/hero-img-1-thumb.webp',
       alt: 'Zapatilla 2',
       title: 'Modelo Urbano 2'
+    },
+    {
+      itemImageSrc: '/img/hero-img.webp',
+      thumbnailImageSrc: 'img/hero-img-thumb.webp',
+      alt: 'Zapatilla 1',
+      title: 'Modelo Urbano 1'
     },
     {
       itemImageSrc: '/img/hero-img-3.webp',
@@ -99,28 +99,6 @@ export class HomeComponent implements OnInit{
       alt: 'Zapatilla 3',
       title: 'Modelo Urbano 3'
     },
-  ];
-
-  // Galería 2 
-  imagesSecondGallery: any[] = [
-    {
-      itemImageSrc: '/img/destacado-1.webp',
-      thumbnailImageSrc: 'img/hero-img-thumb.webp',
-      alt: 'Adidas superstar',
-      title: 'El Ícono de Estilo y Comodidad'
-    }, 
-    {
-      itemImageSrc: '/img/destacado-3.webp',
-      thumbnailImageSrc: 'img/hero-img-3-thumb.webp',
-      alt: 'Adidas campus',
-      title: 'Clásico Urbana con un Toque Sofisticado'
-    },
-    {
-      itemImageSrc: '/img/destacado-2.webp',
-      thumbnailImageSrc: 'img/hero-img-1-thumb.webp',
-      alt: 'Forum 2000',
-      title: 'Diseño Retro con Toque Moderno'
-    }
   ];
 
   responsiveOptions = [

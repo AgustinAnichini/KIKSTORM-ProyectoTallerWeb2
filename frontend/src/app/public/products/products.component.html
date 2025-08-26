@@ -1,12 +1,31 @@
 <main class="main">
-    <div class="hero">
-       <div class="hero-content">
-          <h2>Zapatillas para cada paso</h2>
-          <p>Filtrá por marca, color o talle y encontrá lo que estás buscando</p>
-       </div>
-    </div>
+    
+     <!-- Galería -->
+  <div class="destacados">
+    <p-galleria
+      class="second-gallery"
+      [value]="imagesSecondGallery"
+      [responsiveOptions]="responsiveOptions"
+      [numVisible]="5"
+      [showThumbnails]="false"
+      [showItemNavigators]="true" 
+      [circular]="true"
+      [containerStyle]="{ 'width': '100%', 'height': 'auto', 'overflow': 'hidden' }"
+    >
+      <ng-template #item let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; height: auto; display: block; " />
+      </ng-template>
+      <ng-template #thumbnail let-item>
+        <img [src]="item.thumbnailImageSrc" style="position: absolute; opacity: 0;" /> 
+      </ng-template>
+      <ng-template #caption let-item>
+        <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
+        <p class="text-white">{{ item.alt }}</p>
+      </ng-template>
+    </p-galleria>
+  </div>
 
-    <div class="main-content">
+<div class="main-content">
   <aside class="filters">
     <app-filters
       [marcas]="marcas"
@@ -31,18 +50,18 @@
   </aside>
 
   <!-- Productos -->
- <section class="products">
-  <div class="products__div"
-       *ngFor="let zapatilla of filteredZapatillas"
-       (click)="openDetail(zapatilla)">          
+  <section class="products">
+    <div class="products__div"
+        *ngFor="let zapatilla of filteredZapatillas"
+        (click)="openDetail(zapatilla)">          
 
-    <app-shoe
-      [zapatilla]="zapatilla"
-      (detalle)="openDetail($event)">           
-    </app-shoe>
+      <app-shoe
+        [zapatilla]="zapatilla"
+        (detalle)="openDetail($event)">           
+      </app-shoe>
 
-  </div>
-</section>
+    </div>
+  </section>
 
 </div>
 <app-footer />
