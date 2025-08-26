@@ -1,5 +1,5 @@
 .bg-home{
-  background-color: black;
+  background-color: var(--color-primario);
 }
 
 .benefits {
@@ -109,7 +109,7 @@
 }
 
 .container-marcas-2 img{
-  width: 20rem;
+  width: 15rem;
   height: auto;
 }
 

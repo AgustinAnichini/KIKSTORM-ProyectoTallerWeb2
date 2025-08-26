@@ -41,7 +41,7 @@ export class ZapatillaService {
   getZapatillasLimit(): Observable<Zapatilla[]> {
   return this.http.get<Zapatilla[]>(`${environment.api_url}/zapatilla`)
     .pipe(
-      map(zapatillas => zapatillas.slice(0, 5))
+      map(zapatillas => zapatillas.slice(0, 4))
     );
   }
 }

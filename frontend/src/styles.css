@@ -11,19 +11,23 @@
 .pd-dialog .p-dynamicdialog {
   width: min(90vw, var(--pd-dialog-max)) !important;
   max-height: 90vh !important;   
-  border-radius: 12px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-
-
 .dark-dialog .p-dialog-header,
 .dark-dialog .p-dialog-content{
-  background:#111;
-  color:#f8f8f8;
+  background: var(--color-acento);
+  color: black;
+  font-weight: bold;
 }
+
+.p-dialog-header{
+  font-family: 'Bebas Neue', sans-serif;  
+
+}
+
 
 .dark-dialog .p-dialog-content {
   background: #111;
@@ -34,6 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 
@@ -46,6 +51,7 @@
   overflow: hidden;
   padding: 2rem;
   box-sizing: border-box;
+  
 }
 
 
@@ -81,7 +87,7 @@
   font-weight:700;
   border-radius:50%;
 
-  color:#fff;
+  color: black;
   background:transparent;
   border:2px solid var(--color-acento);
   cursor:pointer;
@@ -114,6 +120,7 @@
   align-items: center;
   max-height: fit-content;
   width: 15rem;
+  height: auto;
 }
 
 .products-home{

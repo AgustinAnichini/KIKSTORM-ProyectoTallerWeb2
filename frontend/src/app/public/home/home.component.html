@@ -72,12 +72,13 @@
     </div>
   </div>
   <!-- Productos destacados -->
-  <section class="mb-4">
+  <section class="mb-4" >
     <h1 class="text-center favoritos">Tus pares favoritos</h1>
     <div class="products-home">
         <div class="products__div"
           *ngFor="let zapatilla of zapatillaLimit"
-          (click)="openDetail(zapatilla)">          
+          (click)="openDetail(zapatilla)"
+          style="border: solid 2px black;">          
 
         <app-shoe
           [zapatilla]="zapatilla"
@@ -115,7 +116,7 @@
   
 
 <div>
-      <h1 class="text-center favoritos">Tus marcas favoritas</h1>
+  <h1 class="text-center favoritos">Tus marcas favoritas</h1>
   <div class="d-flex justify-content-center mt-4 mb-5">
     <div class="container-marcas-2">
      <a [routerLink]="['/productos']" [queryParams]="{ marcas: 'adidas' }"><img [src]="bgAdidas" alt="Logo adidas"></a>

@@ -4,7 +4,7 @@
   gap: 50rem;
   align-items: center;
   padding: 10px 20px;
-  background-color: var(--color-primario);
+  background-color: black;
   position: sticky;
   top: 0;
   z-index: 99;

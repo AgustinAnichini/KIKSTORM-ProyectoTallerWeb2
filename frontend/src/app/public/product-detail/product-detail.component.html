@@ -1,35 +1,78 @@
-<div *ngIf="loading" class="pd-loading">Cargando…</div>
+<div *ngIf="loading" class="d-flex justify-content-center py-5 my-5">
+  <div class="spinner-border text-dark" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
 
-<section *ngIf="!loading && zapatilla as z" class="pd-card">
-  <img class="pd-img" [src]="'/img/' + z.imagen" [alt]="z.nombre" />
+<!-- Contenedor principal del detalle del producto -->
+<section *ngIf="!loading && zapatilla as z" class="card shadow-lg p-md-5 p-3">
+  <div class="d-flex flex-column flex-lg-row align-items-center">
 
-  <div class="pd-info">
-    <h2 class="pd-title">{{ z.nombre }}</h2>
-    <p class="pd-brand">{{ z.marca?.nombre }}</p>
-    <p class="pd-price">$ {{ formatPrice(z.precio) }}</p>
-    <p class="pd-desc" *ngIf="z.descripcion">{{ z.descripcion }}</p>
-
-    <h4>Talles disponibles</h4>
-    <div class="pd-talles">
-      <button
-        class="pd-talle"
-        *ngFor="let s of z.stock"
-        [class.activo]="selectedStock?.id === s.id"
-        [disabled]="!s.activo || s.cantidad === 0"
-        (click)="seleccionarTalle(s)">
-        {{ s.talle?.numero }}
-      </button>
+    <!-- Columna de la imagen -->
+    <div class="col-12 col-lg-6 mb-4 mb-lg-0 p-lg-3">
+      <img
+        class="img-fluid rounded-3 shadow-sm"
+         [src]="'/img/' + z.imagen"
+        [alt]="z.nombre"
+      />
     </div>
 
-    <button pButton
-            label="{{ agregando ? 'Agregando…' : 'Agregar al carrito' }}"
-            class="pd-add btn-form"
-            [disabled]="!selectedStock || agregando"
-            (click)="agregarAlCarrito()">
-    </button>
+    <!-- Columna de la información -->
+    <div class="col-12 col-lg-6 p-lg-3" >
+      <!-- Título y Marca -->
+      <h6 class="text-uppercase text-muted fw-bold mb-1">
+        {{ z.marca?.nombre }}
+      </h6>
+      <h2 class="h3 fw-light text-dark mb-2">
+        {{ z.nombre }}
+      </h2>
+      <hr class="my-3 text-secondary"/>
 
-    <button *ngIf="dialogRef" class="pd-close" (click)="cerrar()">×</button>
+      <!-- Precio y Descripción -->
+      <h3 class="fw-bold text-dark mb-4">
+        $ {{ formatPrice(z.precio) }}
+      </h3>
+      <p class="text-dark-50 small" *ngIf="z.descripcion">
+        {{ z.descripcion }}
+      </p>
 
-    <div *ngIf="errorMsg" class="pd-error">{{ errorMsg }}</div>
+      <!-- Talles disponibles -->
+      <div class="mb-4">
+        <h4 class="h6 fw-bold text-dark mb-2">Talles disponibles</h4>
+        <div class="d-flex flex-wrap gap-2">
+          <button
+            class="btn btn-sm"
+            *ngFor="let stockItem of z.stock"
+            [ngClass]="{
+              'btn-dark': selectedStock?.id === stockItem.id,
+              'btn-outline-dark': selectedStock?.id !== stockItem.id
+            }"
+            [disabled]="!stockItem.activo || stockItem.cantidad === 0"
+            (click)="seleccionarTalle(stockItem)">
+            {{ stockItem.talle?.numero }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón para agregar al carrito -->
+      <button
+        type="button"
+        class="btn btn-dark w-100 py-3 fw-bold text-uppercase"
+        [disabled]="!selectedStock || agregando"
+        (click)="agregarAlCarrito()">
+        <span *ngIf="agregando" class="spinner-border spinner-border-sm me-2" role="status"></span>
+        {{ agregando ? 'Agregando...' : 'Agregar al carrito' }}
+      </button>
+
+      <!-- Botón para cerrar el modal -->
+      <div *ngIf="dialogRef" class="position-absolute top-0 end-0 m-3">
+        <button type="button" class="btn-close pt-4 pr  -4" aria-label="Close" (click)="cerrar()"></button>
+      </div>
+      
+      <!-- Mensaje de error -->
+      <div *ngIf="errorMsg" class="alert alert-danger mt-3" role="alert">
+        {{ errorMsg }}
+      </div>
+    </div>
   </div>
 </section>
