@@ -4,7 +4,7 @@ import { ShoeComponent } from '../shoe/shoe.component';
 import { FiltersComponent } from '../filters/filters.component';
 import { Zapatilla } from '../../../interfaces';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment.prod.';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductDetailComponent }        from '../product-detail/product-detail.component'; 

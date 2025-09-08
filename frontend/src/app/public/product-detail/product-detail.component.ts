@@ -2,7 +2,7 @@ import { Component, OnInit, inject, Optional } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment.prod.';
 import { Stock, Zapatilla } from '../../../interfaces';
 import { ButtonModule } from 'primeng/button';
 import { CarritoService } from '../../api/services/carrito/carrito.service';
