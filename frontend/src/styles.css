@@ -130,11 +130,12 @@ font-family: 'Bebas Neue', sans-serif;
 }
 
 .products {
-    flex: 3;
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  flex: 3;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .products__div {

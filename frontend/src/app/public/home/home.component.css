@@ -67,7 +67,6 @@
 
 .categorias div {
   border: solid 2px var(--color-secundario);
-  padding: 0.5rem;
   box-sizing: border-box;
 }
 
@@ -137,8 +136,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  /* background-color: var(--color-primario); */
-   background: rgb(82, 79, 72);
+  background: rgb(82, 79, 72);
 }
 
 .products__div {
