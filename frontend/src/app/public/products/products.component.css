@@ -16,6 +16,7 @@
   flex-direction: column;
   background-color: black;
   border-right: solid 4px var(--color-acento);
+  border-top: solid 4px var(--color-acento);
 }
 
 .filters__title {
